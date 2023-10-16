@@ -11,13 +11,13 @@ class OptionDebug extends BaseOptionItem{
             'label' =>  __('调试与开发' , PUOCK),
             'icon'=>'dashicons-code-standards',
             'fields' => [
-                [
-                    'id' => 'puock_debug',
-                    'label' => __('显示调试过程', PUOCK),
-                    'type' => 'switch',
-                    'sdt' => 'false',
-                    'tips'=>__('数据会显示在<code>console</code>，需<code>F12</code>打开控制台查看', PUOCK),
-                ],
+                // [
+                //     'id' => 'puock_debug',
+                //     'label' => __('显示调试过程', PUOCK),
+                //     'type' => 'switch',
+                //     'sdt' => 'false',
+                //     'tips'=>__('数据会显示在<code>console</code>，需<code>F12</code>打开控制台查看', PUOCK),
+                // ],
                 [
                     'id' => 'debug_sql_count',
                     'label' => __('显示SQL查询统计', PUOCK),
