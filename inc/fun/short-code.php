@@ -130,11 +130,55 @@ function pk_music($attr, $content = null)
 }
 
 add_shortcode('music', 'pk_music');
+
+
 //下载
 function pk_download($attr, $content = null)
 {
     $filename = isset($attr['file']) ? $attr['file'] : '';
     $size = isset($attr['size']) ? $attr['size'] : '';
+
+    # download-monitor:  https://github.com/WPChill/download-monitor/blob/4cf7e5bc4acdd6bb32ec446f6f5dcb44a671ec77/src/Shortcodes.php#L81
+    $id = isset($attr['id']) ? $attr['id'] : 0;
+    if($id && function_exists('download_monitor')){
+        try {
+			/** @var DLM_Download $download */
+			$download = download_monitor()->service( 'download_repository' )->retrieve_single( $id );
+            echo "<script>console.log(" . json_encode($download) . ");</script>";
+
+            $version = isset($attr['version']) ? $attr['version'] : null;
+            // check if version is set
+			if ( ! empty( $version ) ) {
+				$version_id = $download->get_version_id_version_name( $version );
+			}
+
+			// check if version ID is set
+			if ( isset( $version_id ) && 0 != $version_id ) {
+				try {
+					$version = download_monitor()->service( 'version_repository' )->retrieve_single( $version_id );
+					$download->set_version( $version );
+				} catch ( Exception $e ) {
+				}
+			}
+
+            if(!$filename){
+                $filename = $download->get_version()->get_filename();
+            }
+            
+            if(!$size){
+                $size = $download->get_version()->get_filesize_formatted();
+            }
+
+            if($content==null){
+                $content = $download->get_the_download_link(false);
+                $content = '<a href="'. $content .'" target="_blank">' . $content . '</a>';
+            }
+
+        }catch ( Exception $e ) {
+            echo "<script>console.log('download_monitor插件处理失败','" . json_encode($e) . "');</script>";
+		}
+        
+    }
     $down_tips = pk_get_option('down_tips');
     return "<div class=\"p-block p-down-box\">
         <div class='mb15'><i class='fa fa-file-zipper'></i>&nbsp;<span>文件名称：$filename</span></div>
@@ -143,6 +187,12 @@ function pk_download($attr, $content = null)
         <div><i class='fa fa-link'></i><span>下载地址：$content</span></div>
     </div>";
 }
+
+function pk_dlm_do_xhr( $string) {
+    // (maybe) modify $string.
+    return false;
+}
+add_filter( 'dlm_do_xhr', 'pk_dlm_do_xhr', true);
 
 add_shortcode('download', 'pk_download');
 add_shortcode('dltable', 'pk_download');
