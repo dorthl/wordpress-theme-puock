@@ -144,7 +144,7 @@ function pk_download($attr, $content = null)
         try {
 			/** @var DLM_Download $download */
 			$download = download_monitor()->service( 'download_repository' )->retrieve_single( $id );
-            echo "<script>console.log(" . json_encode($download) . ");</script>";
+            // echo "<script>console.log(" . json_encode($download) . ");</script>";
 
             $version = isset($attr['version']) ? $attr['version'] : null;
             // check if version is set
