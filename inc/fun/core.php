@@ -722,10 +722,14 @@ function get_nav_menu_object($location)
 //将匹配的到的菜单数据转换为html
 function pk_get_menu_obj_to_html($menus, &$out, $mobile = false, $dpath_cur = 1, $max_dpath = 2)
 {
+    echo "<script>console.log(" . json_encode($menus) . ");</script>";
     $child_class = $dpath_cur != 1 ? 'menu-item-child' : '';
-    $target = pk_link_target(false);
     foreach ($menus as $menu) {
         $classes = join(" ", $menu->classes);
+        $target = '';
+        if($menu->target){
+            $target = 'target="'.$menu->target. '"';
+        }
         $cur = $menu->current ? 'menu-current' : '';
         $out .= "<li id='menu-item-{$menu->ID}' class='menu-item-{$menu->ID} {$classes} {$child_class} {$cur}'>";
         if (!$mobile) {
