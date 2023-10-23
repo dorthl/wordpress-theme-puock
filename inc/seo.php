@@ -24,8 +24,10 @@ if (!empty($custom_seo_title)) { ?>
 <?php } else if (is_author()) { ?><title><?php the_author(); ?>
     <?php echo $pkSeoPageInfo . $titleConn . $blog_name ?></title>
 <?php } else if (is_category()) { ?>
+    <meta name="robots" content="noindex, nofollow" />
     <title><?php single_cat_title(); ?><?php echo $pkSeoPageInfo . $titleConn . $blog_name ?> </title>
 <?php } else if (is_tag()) { ?>
+    <meta name="robots" content="noindex, nofollow" />
     <title><?php single_tag_title("", true); ?><?php echo $pkSeoPageInfo . $titleConn . $blog_name; ?></title>
 <?php } else if (is_404()) { ?> <title>你访问的资源不存在<?php echo $pkSeoPageInfo . $titleConn . $blog_name; ?></title>
 <?php } else { ?> <title><?php echo $blog_name . $pkSeoPageInfo . $titleConn . $blog_name; ?></title><?php } ?>
