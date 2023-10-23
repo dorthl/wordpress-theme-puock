@@ -1,0 +1,1 @@
+<title><?php echo wp_title('', 0) ?></title>

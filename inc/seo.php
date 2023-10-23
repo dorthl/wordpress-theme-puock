@@ -75,10 +75,7 @@ if (!empty($custom_seo_title)) { ?>
         echo '<meta name="description" content="' . $cat_seo_desc . '"/>';
     } else {
         echo '<meta name="description" content="' . $cat_seo_root_obj->name . '"/>';
-    }
-
-
-    ?>
+    } ?>
 <?php endif; ?>
 <?php
 if (is_home()) {
