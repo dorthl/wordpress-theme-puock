@@ -5,7 +5,7 @@
     <div data-to="top" class="p-block"><i class="fa fa-arrow-up puock-text"></i></div>
     <div data-to="bottom" class="p-block"><i class="fa fa-arrow-down puock-text"></i></div>
 </div>
-<footer id="footer">
+<footer id="footer" style="padding: 30px 0 48px 0;">
     <div class="container">
         <div class="row row-cols-md-1">
             <?php if (pk_is_checked('footer_about_me_open')): ?>
