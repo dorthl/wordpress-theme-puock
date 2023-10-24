@@ -52,11 +52,11 @@ echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>
                     </div>
                 </div>
                 <div class="mobile-menus d-block d-lg-none p-1 puock-text">
-                    <i class="fa fa-bars t-xl mr-2 mobile-menu-s"></i>
+                    <i class="fa fa-bars t-xl mr-2 mobile-menu-s" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
                     <?php if (pk_is_checked('theme_mode_s')): ?>
-                        <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?> colorMode t-xl mr-2"></i>
+                        <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?> colorMode t-xl mr-2" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
                     <?php endif; ?>
-                    <i class="search-modal-btn fa fa-search t-md"></i>
+                    <i class="search-modal-btn fa fa-search t-md" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
                 </div>
             </div>
         </div>
