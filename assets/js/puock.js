@@ -607,7 +607,7 @@ class Puock {
                     el.attr("id", "hljs-item-" + index)
                     el.before("<div class='pk-code-tools' data-pre-id='hljs-item-" + index + "'><div class='dot'>" +
                         "<i></i><i></i><i></i></div><div class='actions'><div><i class='i fa fa-copy cp-code' data-clipboard-target='#hljs-item-" + index + "'></i></div></div></div>")
-                    window.hljs.highlightBlock(block);
+                    window.hljs.highlightElement(block);
                     window.hljs.lineNumbersBlock(block);
                 }
             });
