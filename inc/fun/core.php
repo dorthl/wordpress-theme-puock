@@ -500,17 +500,28 @@ if (pk_is_checked('open_baidu_submit')) {
 //对pre里面的内容进行转义
 function pk_tag_pre_encode($content)
 {
-    preg_match_all("/<pre.*?>(.+?)<\/pre>/is", $content, $matches);
-    if (isset($matches[1])) {
-        foreach ($matches[1] as $match) {
+    preg_match_all("/<pre\sclass=\"(.+?)\">(.+?)<\/pre>/is", $content, $matches);
+
+    if (isset($matches[2])) {
+        $index = 0;
+        foreach ($matches[2] as $match) {
             $m = trim($match);
+            $classes = explode(' ',$matches[1][$index]);
+            $language = 'language-default';
+            foreach($classes as $class){
+                if($class!=='sourceCode'){
+                    $language = "language-".$class;
+                }
+            }
+            // echo "<script>console.log('" . json_encode($match) . "');</script>";
             if (!(substr($m, 0, strlen("<code")) === "<code")) {
-                $m = "<code class='language-default'>$m</code>";
+                $m = "<code class='".$language."'>$m</code>";
             }
             if (substr($m, 0, strlen("<code>")) === "<code>") {
-                $m = "<code class='language-default'>" . substr($m, strlen("<code>"));
+                $m = "<code class='".$language."'>" .substr($m, strlen("<code>"));
             }
             $content = str_replace($match, $m, $content);
+            $index++;
         }
     }
     return $content;
