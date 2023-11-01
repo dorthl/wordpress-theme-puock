@@ -672,6 +672,10 @@ function pk_get_main_menu($mobile = false)
     if ($menus && count($menus) > 0) {
         pk_get_menu_obj_to_html($menus, $out, $mobile);
     }
+    if(!$mobile){
+        $out .= '<li><a target="_blank" href="https://foreverblog.cn/go.html" rel="noopener external nofollow noreferrer" title="离开这里并访问下一个博客「十年博客虫洞服务」"><i class="fa-solid fa-dice"></i> 虫洞</a></li>';
+        $out .= '<li><a target="_blank" href="https://travellings.cn/go.html" rel="noopener external nofollow noreferrer" title="离开这里并访问下一个博客「开往服务」"><i class="fa-solid fa-subway"></i> 开往</a></li>';
+    }
     if (is_user_logged_in()) {
         $user = wp_get_current_user();
         $avatar = get_avatar_url($user->user_email);
@@ -687,7 +691,6 @@ function pk_get_main_menu($mobile = false)
             $out .= '<li><a class="colorMode" data-bs-toggle="tooltip" title="模式切换" href="javascript:void(0)"><i class="fa-regular fa-' . (pk_theme_light() ? 'sun' : 'moon') . '"></i></a></li>';
         }
         $out .= '<li><a class="search-modal-btn" data-bs-toggle="tooltip" title="搜索" href="javascript:void(0)"><i class="fa fa-search"></i></a></li>';
-        $out .= '<li> |<a class="social-icon" target="_blank" rel="noopener external nofollow noreferrer" href="https://travellings.cn/go.html" title="离开这里并访问下一个博客「开往服务」"><i class="fa-solid fa-subway"></i></a></li>';
     }
     $out .= '</ul>';
     return $out;
