@@ -52,11 +52,21 @@ echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>
                     </div>
                 </div>
                 <div class="mobile-menus d-block d-lg-none p-1 puock-text">
-                    <i class="fa fa-bars t-xl mr-2 mobile-menu-s" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
+                    <a class="t-xl t-md" style="padding: 1.3rem 0.4rem;margin: 0;" target="_blank" rel="noopener external nofollow noreferrer" href="https://travellings.cn/go.html" title="离开这里并访问下一个博客「开往服务」">
+                        <i class="fa fa-solid fa-subway"></i>
+                    </a>
+                    |
                     <?php if (pk_is_checked('theme_mode_s')): ?>
-                        <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?> colorMode t-xl mr-2" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
+                    <a href="#" title="切换模式" class="colorMode t-xl mr-2" style="padding: 1.3rem 0.4rem;margin: 0;">
+                        <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?>" ></i>
+                    </a>
                     <?php endif; ?>
-                    <i class="search-modal-btn fa fa-search t-md" style="padding: 1.3rem 0.5rem;margin: 0;"></i>
+                    <a href="#" title="打开搜索框" class="search-modal-btn t-xl t-md" style="padding: 1.3rem 0.4rem;margin: 0;">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#" title="打开网站菜单" style="padding: 1.3rem 0.4rem;margin: 0;">
+                        <i class="fa fa-bars t-xl mr-2 mobile-menu-s"></i>
+                    </a>
                 </div>
             </div>
         </div>

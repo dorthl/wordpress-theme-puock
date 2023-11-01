@@ -687,6 +687,7 @@ function pk_get_main_menu($mobile = false)
             $out .= '<li><a class="colorMode" data-bs-toggle="tooltip" title="模式切换" href="javascript:void(0)"><i class="fa-regular fa-' . (pk_theme_light() ? 'sun' : 'moon') . '"></i></a></li>';
         }
         $out .= '<li><a class="search-modal-btn" data-bs-toggle="tooltip" title="搜索" href="javascript:void(0)"><i class="fa fa-search"></i></a></li>';
+        $out .= '<li> |<a class="social-icon" target="_blank" rel="noopener external nofollow noreferrer" href="https://travellings.cn/go.html" title="离开这里并访问下一个博客「开往服务」"><i class="fa-solid fa-subway"></i></a></li>';
     }
     $out .= '</ul>';
     return $out;
