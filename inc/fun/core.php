@@ -672,10 +672,6 @@ function pk_get_main_menu($mobile = false)
     if ($menus && count($menus) > 0) {
         pk_get_menu_obj_to_html($menus, $out, $mobile);
     }
-    if(!$mobile){
-        $out .= '<li><a target="_blank" href="https://foreverblog.cn/go.html" rel="noopener external nofollow noreferrer" title="离开这里并访问下一个博客「十年博客虫洞服务」"><i class="fa-solid fa-dice"></i> 虫洞</a></li>';
-        $out .= '<li><a target="_blank" href="https://travellings.cn/go.html" rel="noopener external nofollow noreferrer" title="离开这里并访问下一个博客「开往服务」"><i class="fa-solid fa-subway"></i> 开往</a></li>';
-    }
     if (is_user_logged_in()) {
         $user = wp_get_current_user();
         $avatar = get_avatar_url($user->user_email);

@@ -52,13 +52,6 @@ echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>
                     </div>
                 </div>
                 <div class="mobile-menus d-block d-lg-none p-1 puock-text">
-                    <a class="t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;" target="_blank" rel="noopener external nofollow noreferrer" href="https://foreverblog.cn/go.html" title="离开这里并访问下一个博客「十年博客虫洞服务」">
-                        <i class="fa fa-solid fa-dice"></i>
-                    </a>
-                    <a class="t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;" target="_blank" rel="noopener external nofollow noreferrer" href="https://travellings.cn/go.html" title="离开这里并访问下一个博客「开往服务」">
-                        <i class="fa fa-solid fa-subway"></i>
-                    </a>
-                    |
                     <?php if (pk_is_checked('theme_mode_s')): ?>
                         <a href="#" title="切换模式" class="colorMode t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
                             <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?>" ></i>
