@@ -53,15 +53,15 @@ echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>
                 </div>
                 <div class="mobile-menus d-block d-lg-none p-1 puock-text">
                     <?php if (pk_is_checked('theme_mode_s')): ?>
-                        <a href="#" title="切换模式" class="colorMode t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
+                        <a href="javascript:void(0)" title="切换模式" class="colorMode t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
                             <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?>" ></i>
                         </a>
                     <?php endif; ?>
-                    <a href="#" title="打开搜索框" class="search-modal-btn t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;">
+                    <a href="javascript:void(0)" title="打开搜索框" class="search-modal-btn t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;">
                         <i class="fa fa-search"></i>
                     </a>
-                    <a href="#" title="打开网站菜单" class="t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;">
-                        <i class="fa fa-bars t-xl mr-2 mobile-menu-s"></i>
+                    <a href="javascript:void(0)" title="打开网站菜单" class="mobile-menu-s t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
+                        <i class="fa fa-bars"></i>
                     </a>
                 </div>
             </div>
