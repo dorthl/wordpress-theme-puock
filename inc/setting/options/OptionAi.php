@@ -18,18 +18,40 @@ class OptionAi
                     'tips' => __('启用后去<a href="/wp-admin/post-new.php?post_type=page">创建页面</a>选择<code>AI助手</code>模板即可使用', PUOCK)
                 ],
                 [
+                    'id' => 'ai_chat_platform',
+                    'label' => __('API 提供商', PUOCK),
+                    'type' => 'radio',
+                    'sdt' => 'gptnb',
+                    'options' => [
+                        [
+                            'value' => 'gptnb',
+                            'label' => __('GPTNB', PUOCK),
+                        ],
+                        [
+                            'value' => 'openai',
+                            'label' => __('OpenAI', PUOCK),
+                        ],
+                        [
+                            'value' => 'custom',
+                            'label' => __('自定义', PUOCK),
+                        ],
+                    ],
+                    'tips' => __('<a href="https://goapi.gptnb.me" target="_blank"><code>GPTNB（第三方中转）<i class="fa-solid fa-arrow-up-right-from-square"></i></code></a> | <a href="https://platform.openai.com" target="_blank"><code>OpenAI（官方）<i class="fa-solid fa-arrow-up-right-from-square"></i></code></a>（注意：第三方中转由第三方服务商提供，本程序不承诺任何担保，若有任何疑问请咨询对应的网站客服）', PUOCK),
+                ],
+                [
                     'id' => 'ai_chat_key',
                     'label' => __('API KEY', PUOCK),
                     'type' => 'text',
                     'sdt' => pk_get_option('openai_api_key'),
-                    'tips' => __('请在<a href="https://platform.openai.com/" target="_blank">OpenAI - Platform</a>申请获取API Key，或填入您其他平台的KEY', PUOCK),
+                    'tips' => __('请在上方选择的对应的服务商申请获取API Key，然后在此填入', PUOCK),
                 ],
                 [
                     'id' => 'ai_chat_agent',
-                    'label' => __('API 代理域', PUOCK),
+                    'label' => __('自定义 API 代理域', PUOCK),
                     'type' => 'text',
-                    'sdt' => pk_get_option('openai_api_agent'),
-                    'tips' => __('默认为<code>https://api.openai.com</code>，如果您要使用其他平台请自行配置代理域名，例如您自己的反向代理、Api2D、OpenAISB或自建的OneAPI', PUOCK),
+                    'sdt' => '',
+                    'showRefId'=>'func:(function(args){return args.data.ai_chat_platform==="custom"})(args)',
+                    'tips' => __('如果您要使用其他平台请自行配置代理域名，例如您自己的反向代理等，其API规范必须符合OpenAI API', PUOCK),
                 ],
                 [
                     'id' => 'ai_chat_models',
@@ -78,6 +100,16 @@ class OptionAi
                     'tips' => __('启用后前端界面<code>勾选绘画模式</code>即可绘画', PUOCK),
                 ],
                 [
+                    'id' => 'ai_draw_dall_e_model',
+                    'label' => __('AI绘画模型', PUOCK),
+                    'type' => 'select',
+                    'sdt' => pk_get_option('ai_draw_dall_e_model', 'dall-e-2'),
+                    'options' => [
+                        ['label' => 'DallE-2', 'value' => 'dall-e-2'],
+                        ['label' => 'DallE-3', 'value' => 'dall-e-3'],
+                    ],
+                ],
+                [
                     'id' => 'ai_draw_dall_e_size',
                     'label' => __('AI绘画图片大小', PUOCK),
                     'type' => 'select',
@@ -85,7 +117,9 @@ class OptionAi
                     'options' => [
                         ['label' => '256x256', 'value' => '256x256'],
                         ['label' => '512x512', 'value' => '512x512'],
-                        ['label' => '1024x1024', 'value' => '1024x1024']
+                        ['label' => '1024x1024', 'value' => '1024x1024'],
+                        ['label' => '1792x1024（仅DallE-3支持）', 'value' => '1792x1024'],
+                        ['label' => '1024x1792（仅DallE-3支持）', 'value' => '1024x1792'],
                     ],
                 ],
                 [

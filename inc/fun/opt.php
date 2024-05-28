@@ -34,6 +34,22 @@ function puock_post_is_like()
     return !empty($_COOKIE['puock_like_' . $post->ID]);
 }
 
+// 点赞数显示
+function puock_post_like_num(int $id)
+{
+    $number = get_post_meta($id, 'puock_like', true) ?: 0;
+    if (!is_numeric($number)) {
+        $number = 0;
+    }
+    if ($number < 1000) {
+        return $number; // 小于1000直接返回
+    } elseif ($number < 1000000) {
+        return round($number / 1000, 0) . 'k'; // 1000到999999之间返回“k”格式
+    } else {
+        return round($number / 1000000, 0) . 'M'; // 大于等于1000000返回“M”格式
+    }
+}
+
 //移除wp自带的widget
 function init_unregister_widgets()
 {
@@ -218,6 +234,9 @@ function wp_compress_html()
         $count = count($buffer);
         $out = "";
         for ($i = 0; $i <= $count; $i++) {
+            if(!($buffer[$i] ?? null)){
+                continue;
+            }
             if (stristr($buffer[$i], '<!--wp-compress-html no compression-->')) {
                 $buffer[$i] = (str_replace("<!--wp-compress-html no compression-->", " ", $buffer[$i]));
             } else {
@@ -254,10 +273,37 @@ function pk_go_link($url, $name = '')
     return $url;
 }
 
+//开启了内页链接跳转
+if (pk_is_checked('link_go_page')) {
+    /**
+     * 内页跳转链接
+     *
+     * @param string $content 修改前的内容
+     * @return string 修改后的内容
+     * @author lvshujun
+     * @date 2024-03-19
+     */
+    function pk_content_addlink($content) {
+        //匹配链接
+        preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/',$content,$matches);
+        if ($matches) {
+            foreach ($matches[2] as $val) {
+                if (strpos($val,'://') !== false 
+                    && pk_is_cur_site($val) === false 
+                    && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i',$val)) {
+                    $content = str_replace('href="'.$val.'"', 'href="'.pk_go_link($val).'"', $content);
+                }
+            }
+        }
+        return $content;
+    }
+    add_filter('the_content', 'pk_content_addlink');
+}
+
 //检测链接是否属于本站
 function pk_is_cur_site($url)
 {
-    if (strpos($url, home_url()) === 0) {
+    if (str_starts_with($url, home_url()) === 0) {
         return true;
     }
     return false;
@@ -272,7 +318,7 @@ if (pk_is_checked('use_post_menu')) {
                 $start = stripos($content, $ms[0][$i]);
                 $end = strlen($ms[0][$i]);
                 $level = substr($ms[0][$i], 1, 2);
-                $content = substr_replace($content, "<$level id='pk-menu-${i}'>{$title}</{$level}>", $start, $end);
+                $content = substr_replace($content, "<$level id='pk-menu-{$i}'>{$title}</{$level}>", $start, $end);
             }
         }
         return $content;
@@ -400,7 +446,7 @@ function pk_captcha_validate($type, $val, $success_clear = true)
 {
     $res = false;
     pk_session_call(function () use ($type, $val, $success_clear, &$res) {
-        if (isset($_SESSION[$type . '_vd']) && $_SESSION[$type . '_vd'] == $val) {
+        if (isset($_SESSION[$type . '_vd']) && strtolower($_SESSION[$type . '_vd']) == strtolower($val)) {
             $res = true;
             if ($success_clear) {
                 unset($_SESSION[$type . '_vd']);
@@ -460,7 +506,7 @@ function pk_head_style_var()
     $vars = [
         "--puock-block-not-tran:" . pk_get_option('block_not_tran', 100) . "%",
     ];
-    return "<style>:root{" . join(";", $vars) . "}</style>";
+    return ":root{" . join(";", $vars) . "}";
 }
 
 // 加载文件媒体文件

@@ -6,18 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv='content-language' content='<?php echo get_locale() ?>'>
-    <link rel="shortcut icon" href="<?php echo pk_get_option('favicon') ?>">
-    <link rel="apple-touch-icon" href="<?php echo pk_get_option('favicon') ?>"/>
-    <?php if(pk_is_checked('seo_open',true)) { get_template_part('inc/seo'); }  else { get_template_part('inc/seo-off'); } ?>
+    <?php echo pk_icon_mate(); ?>
+    <?php echo pk_get_seo_title(); ?>
+    <?php if(pk_is_checked('seo_open',true)) get_template_part('inc/seo') ?>
     <?php wp_head(); ?>
-    <?php get_template_part('templates/css', 'grey') ?>
-    <?php get_template_part('templates/css', 'custom') ?>
-    <?php echo pk_head_style_var() ?>
     <?php if (!empty(pk_get_option('tj_code_header', ''))): ?>
         <?php echo pk_get_option('tj_code_header', ''); ?>
-    <?php endif; ?>
-    <?php if (!empty(pk_get_option('css_code_header', ''))): ?>
-        <?php echo "<style>" . pk_get_option('css_code_header', '') . "</style>"; ?>
     <?php endif; ?>
 </head>
 <body class="puock-<?php echo pk_theme_light() ? 'light' : 'dark';

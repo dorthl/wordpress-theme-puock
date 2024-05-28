@@ -11,6 +11,9 @@ include_once('vendor/autoload.php');
 include_once('inc/fun/core.php');
 include_once('gutenberg/index.php');
 
+
+
+
 //去除感谢使用wordpress创作
 if (pk_is_checked('hide_footer_wp_t')) {
     function my_admin_footer_text()
@@ -186,24 +189,23 @@ function pk_get_post_date()
     $c_time = time() - $time;
     $day = 86400;
     switch ($c_time) {
-        //todo 本地化翻译
         case $c_time < $day:
-            $res = '近一天内';
+            $res = __('近一天内',PUOCK);
             break;
         case $c_time < ($day * 2):
-            $res = '近两天内';
+            $res = __('近两天内',PUOCK);
             break;
         case $c_time < ($day * 3):
-            $res = '近三天内';
+            $res = __('近三天内',PUOCK);
             break;
         case $c_time < ($day * 4):
-            $res = '四天前';
+            $res = __('四天前',PUOCK);
             break;
         case $c_time < ($day * 5):
-            $res = '五天前';
+            $res = __('五天前',PUOCK);
             break;
         case $c_time < ($day * 6):
-            $res = '六天前';
+            $res = __('六天前',PUOCK);
             break;
         default:
             $res = date('Y-m-d', $time);
@@ -417,6 +419,87 @@ function pk_breadcrumbs()
     }
     $out .= '</div></nav></ol>';
     return $out;
+}
+
+/**
+ * 返回图标信息
+ *
+ * @return string
+ * @author lvshujun
+ * @date 2024-03-19
+ */
+function pk_icon_mate() {
+    //获取icon地址
+    $pk_icon = pk_get_option('favicon');
+    //未设置返回空
+    if ($pk_icon === '') return '';
+    
+    //连接字符串
+    $str = '<link rel="shortcut icon" href="' . $pk_icon . '">
+    <link rel="apple-touch-icon" href="' . $pk_icon . '"/>';
+
+    return $str;
+}
+
+/**
+ * 输出SEO标题
+ *
+ * @return string SEO标题
+ * @author lvshujun
+ * @date 2024-03-19
+ */
+function pk_get_seo_title() {
+    // 未启用SEO返回空
+    if (!pk_is_checked('seo_open',true)) {
+        return '';
+    }
+    // 用户定义的连接符
+    $pk_title_conn = ' ' . pk_get_option("title_conn") . ' ';
+    // 网站名称
+    $pk_blog_name = pk_get_web_title();
+    // 分页情况
+    $pk_paged_title = '';
+    if (get_query_var('paged')) {
+        $pk_paged_title = $pk_title_conn . '第' . get_query_var('paged') . '页';
+    }
+    // 获取SEO设置
+    $pk_custom_seo_title = pk_get_custom_seo()['title'] ?? '';
+    // 输出内容
+    $pk_title = '';
+    // 通用结尾
+    $pk_common_end = $pk_paged_title . $pk_title_conn . $pk_blog_name;
+    // 已经自定义标题
+    if (!empty($pk_custom_seo_title)) {
+        $pk_title .= $pk_custom_seo_title . $pk_common_end;
+    } else if (is_home()) {
+        $pk_description = pk_get_option('web_title_2');
+        if (!empty($pk_description)) {
+            $pk_title .= $pk_blog_name . $pk_paged_title . $pk_title_conn . $pk_description;
+        } else {
+            $pk_title .= $pk_blog_name . $pk_paged_title;
+        }
+    } else if (is_search()) {
+        $pk_title .= '搜索“' . $_REQUEST['s'] . '”的结果' . $pk_common_end;
+    } else if (is_single() || is_page()) {
+        $pk_title .= single_post_title('', false) . $pk_common_end;
+    } else if (is_year()) {
+        $pk_title .= get_the_time('Y年') . '的所有文章' . $pk_common_end;
+    } else if (is_month()) {
+        $pk_title .= get_the_time('m') . '的所有文章' . $pk_common_end;
+    } else if (is_day()) {
+        $pk_title .= get_the_time('Y年m月d日') . '的所有文章' . $pk_common_end;
+    } else if (is_author()) {
+        $pk_title .= '作者：' . get_the_author() . $pk_common_end;
+    } else if (is_category()) {
+        $pk_title .= single_cat_title('', false) . $pk_common_end;
+    } else if (is_tag()) {
+        $pk_title .= single_tag_title('', false) . $pk_common_end;
+    } else if (is_404()) {
+        $pk_title .= '你访问的资源不存在' . $pk_common_end;
+    } else {
+        $pk_title .= $pk_blog_name . $pk_paged_title;
+    }
+    return '<title>'.$pk_title.'</title>';
 }
 
 //获取阅读数量
