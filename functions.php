@@ -450,9 +450,9 @@ function pk_icon_mate() {
  */
 function pk_get_seo_title() {
     // 未启用SEO返回空
-    if (!pk_is_checked('seo_open',true)) {
-        return '';
-    }
+    // if (!pk_is_checked('seo_open',true)) {
+    //     return '';
+    // }
     // 用户定义的连接符
     $pk_title_conn = ' ' . pk_get_option("title_conn") . ' ';
     // 网站名称
