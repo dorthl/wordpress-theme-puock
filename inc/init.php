@@ -8,7 +8,7 @@ function deel_setup()
     // remove_action('wp_head', 'feed_links', 2, 1);
     // apply_filters('feed_links_show_posts_feed', true);
     // apply_filters('feed_links_show_comments_feed', true);
-    add_theme_support('automatic-feed-links');
+    add_theme_support( 'automatic-feed-links' );
     remove_action('wp_head', 'rsd_link');//移除离线编辑器开放接口
     remove_action('wp_head', 'wlwmanifest_link');//移除离线编辑器开放接口
     remove_action('wp_head', 'index_rel_link');//本页链接
