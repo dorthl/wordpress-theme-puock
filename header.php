@@ -20,7 +20,7 @@
         <?php echo "<style>" . pk_get_option('css_code_header', '') . "</style>"; ?>
     <?php endif; ?>
 </head>
-<body class="puock-<?php echo pk_theme_light() ? 'light' : 'dark';
+<body class="puock-<?php echo pk_theme_mode();
 echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>">
 <div>
     <?php if (is_single()): ?>
@@ -52,17 +52,11 @@ echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>
                     </div>
                 </div>
                 <div class="mobile-menus d-block d-lg-none p-1 puock-text">
+                    <i class="fa fa-bars t-md mr-2 mobile-menu-s"></i>
                     <?php if (pk_is_checked('theme_mode_s')): ?>
-                        <a href="javascript:void(0)" title="切换模式" class="colorMode t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
-                            <i class="fa-regular fa-<?php echo(pk_theme_light() ? 'sun' : 'moon'); ?>" ></i>
-                        </a>
+                        <i class="fa fa-<?php echo((pk_theme_mode() === 'auto' ? 'circle-half-stroke' : (pk_theme_light() ? 'sun' : 'moon'))); ?> colorMode t-md mr-2"></i>
                     <?php endif; ?>
-                    <a href="javascript:void(0)" title="打开搜索框" class="search-modal-btn t-xl t-md" style="padding: 1rem 0.3rem;margin: 0;">
-                        <i class="fa fa-search"></i>
-                    </a>
-                    <a href="javascript:void(0)" title="打开网站菜单" class="mobile-menu-s t-xl mr-2" style="padding: 1rem 0.3rem;margin: 0;">
-                        <i class="fa fa-bars"></i>
-                    </a>
+                    <i class="search-modal-btn fa fa-search t-md position-relative" style="top:0.5px"></i>
                 </div>
             </div>
         </div>
