@@ -12,7 +12,7 @@
     <?php wp_head(); ?>
     <?php get_template_part('templates/css', 'grey') ?>
     <?php get_template_part('templates/css', 'custom') ?>
-    <?php echo pk_head_style_var() ?>
+    <!-- <?php echo pk_head_style_var() ?> -->
     <?php if (!empty(pk_get_option('tj_code_header', ''))): ?>
         <?php echo pk_get_option('tj_code_header', ''); ?>
     <?php endif; ?>
@@ -20,8 +20,7 @@
         <?php echo "<style>" . pk_get_option('css_code_header', '') . "</style>"; ?>
     <?php endif; ?>
 </head>
-<body class="puock-<?php echo pk_theme_mode();
-echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>">
+<body class="puock-<?php echo pk_theme_mode(); echo current_theme_supports('custom-background') ? ' custom-background' : ''; ?>">
 <div>
     <?php if (is_single()): ?>
         <div class="progress" id="page-read-progress">
